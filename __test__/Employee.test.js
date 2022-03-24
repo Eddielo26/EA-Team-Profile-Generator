@@ -12,4 +12,4 @@ test('test name', () => {
      const employee = new Employee('edd', 1, 'edd@mail.com');
 
      expect(employee.getRole()).toBe(role);
- })
+ });
