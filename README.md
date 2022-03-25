@@ -12,8 +12,12 @@
 * [Contact](#contact)
 * [Usage](#usage)
 
-# Description 
+# Description
 
+  * Using node.js command-line application
+  * Prompts user with questions on employees
+  * Takes infromation given and generates an HTML webage
+  * Webpage displays cards with information given by the user
 
 # Video
 
