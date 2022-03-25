@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-      "test": "jest"
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -17,7 +17,9 @@
   },
   "homepage": "https://github.com/Eddielo26/EA-Team-Profile-Generator#readme",
   "dependencies": {
-    "inquirer": "^8.2.1",
+    "inquirer": "^8.2.1"
+  },
+  "devDependencies": {
     "jest": "^27.5.1"
   }
 }
