@@ -9,10 +9,12 @@ const Manager = require('./lib/Manager');
 
 const team = [];
 
-const addManager = [
+const questions = () => {
+    return inquirer.prompt ([
+// const addManager = [
     {
         name: 'role',
-        type: 'cofirm',
+        type: 'confirm',
         message: 'Welcome to Team Profile Generator! Would you like to begin?'
     },
     {
@@ -56,7 +58,7 @@ const addManager = [
         choices: ['Add Engineer', 'Add Intern', 'All done!'],
         message: 'What you like to do next?'
     },
-];
+]);
+};
 
-
-
+questions();
