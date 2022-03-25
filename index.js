@@ -187,8 +187,8 @@ function createProfiles(team) {
     }
     // when adding engineer, require github
     if (member.hasOwnProperty("github")) {
-      const { gitHub } = member;
-      return new Engineer(name, id, email, gitHub);
+      const { github } = member;
+      return new Engineer(name, id, email, github);
     }
     // when adding intern, require school
     if (member.hasOwnProperty("school")) {
