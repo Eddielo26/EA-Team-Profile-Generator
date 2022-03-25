@@ -9,10 +9,9 @@ const Manager = require('./lib/Manager');
 
 const team = [];
 
-const questions = () => {
-    return inquirer.prompt ([
+
 // prompt manager questions
-// const addManager = [
+const addManager = [
     {
         name: 'role',
         type: 'confirm',
@@ -60,8 +59,7 @@ const questions = () => {
         message: 'What you like to do next?'
     },
     
-]);
-};
+];
 
 const addEngineer = [
     {
@@ -155,5 +153,25 @@ const addIntern = [
 
 ];
 
+// start intial questions
+questions(addManager);
 
-questions();
+// cycle through questions when members are added
+function questions(questionArr) {
+    inquirer
+        .prompt(questionArr)
+        .then((member) => {
+            team.push(member);
+
+            if(member.followUp === 'Add Engineer') {
+                questions(addEngineer);
+            } else if (member.followUp === 'Add Intern') {
+                questions(addIntern);
+            } else {
+                createProfiles(team);
+            }
+        })
+        .catch((err) => console.log(err));
+}
+
+
