@@ -7,6 +7,12 @@ const Engineer = require("./lib/Engineer");
 const Intern = require("./lib/Intern");
 const Manager = require("./lib/Manager");
 
+// Import HTML templates
+const addManagerCard = require("./src/card-manager");
+const addEngineerCard = require("./src/card-engineer");
+const addInternCard = require("./src/card-intern");
+const wrapProfileCards = require("./src/card-wrapper");
+
 const team = [];
 
 // prompt manager questions
@@ -171,47 +177,54 @@ function questions(questionArr) {
 }
 
 function createProfiles(team) {
-  const employees = team.map((member) => {
+  const profiles = team.map((member) => {
     const { name, id, email } = member;
 
     // when adding manager,  require office number
-    if (member.hasOwn("officeNumber")) {
+    if (member.hasOwnProperty("officeNumber")) {
       const { officeNumber } = member;
       return new Manager(name, id, email, officeNumber);
     }
     // when adding engineer, require github
-    if (member.hasOwn("github")) {
+    if (member.hasOwnProperty("github")) {
       const { gitHub } = member;
       return new Engineer(name, id, email, gitHub);
     }
     // when adding intern, require school
-    if (member.hasOwn("school")) {
+    if (member.hasOwnProperty("school")) {
       const { school } = member;
-      return new Engineer(name, id, email, school);
+      return new Intern(name, id, email, school);
     }
   });
 
-// Generate HTML from the employees profiles made
-    generateHtml(employees);
-}   
+  // Generate HTML from the employees profiles made
+  generateHtml(profiles);
+}
 
-function generateHtml(employees) {
-    let employeeCards = '';
-    profiles.forEach((employees) => {
-      if (employees instanceof Manager) {
-        const card = addManagerCard(employees);
-        employeeCards += card;
-      } else if (employees instanceof Engineer) {
-        const card = addEngineerCard(employees);
-        employeeCards += card;
-      } else if (employees instanceof Intern) {
-        const card = addInternCard(employees;
-        employeeCards += card;
-      }
-})
+function generateHtml(profiles) {
+  let profileCards = "";
+  profiles.forEach((profile) => {
+    if (profile instanceof Manager) {
+      const card = addManagerCard(profile);
+      profileCards += card;
+    } else if (profile instanceof Engineer) {
+      const card = addEngineerCard(profile);
+      profileCards += card;
+    } else if (profile instanceof Intern) {
+      const card = addInternCard(profile);
+      profileCards += card;
+    }
+  });
 
+  const newHtml = wrapProfileCards(profileCards);
 
-const newHtml = wrapProfileCards(employeeCards);
+  writeHtml(newHtml);
+}
 
-writeHtml(newHtml);
-};
+// Function to write the final HTML document in dist folder
+function writeHtml(newHtml) {
+  fs.writeFile("./dist/team-profile.html", newHtml, (err) => {
+    if (err) throw err;
+    console.log("HTML document successfully created in the /dist folder.");
+  });
+}
